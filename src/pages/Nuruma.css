@@ -1,0 +1,225 @@
+/* Nuruma.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Quicksand', cursive;
+    background: linear-gradient(to bottom right, #fa9daf, #ffc3d1);
+    color: #333;
+}
+
+/* Container for the entire page content */
+.n-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+/* Main title */
+.n-container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #702459;
+    text-shadow: 1px 1px 2px #f2a9bd;
+}
+
+.album-container {
+    margin-top: 2rem;
+}
+
+.album-container h2 {
+    font-size: 1.8rem;
+    color: #5b104c;
+    margin-bottom: 1.5rem;
+}
+
+.album-controls {
+    display: flex;
+    align-items: center;
+}
+
+.album-section {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 16px 0;
+    flex: 1;
+}
+
+.album-card {
+    min-width: 300px;
+    max-width: 300px;
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 16px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+    flex-shrink: 0;
+}
+
+.album-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: #702459;
+}
+
+.album-card .album-date {
+    font-size: 0.9rem;
+    color: #a1a1a1;
+    margin-bottom: 10px;
+}
+
+.album-card p {
+    font-size: 1rem;
+    color: #333;
+    line-height: 1.5;
+}
+
+/* Scroll Tuşları */
+.scroll-button {
+    background-color: #fa9daf;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+    margin: 20px 0px;
+}
+
+.scroll-button:hover {
+    background-color: #f08098;
+}
+
+.scroll-button:active {
+    transform: scale(0.9);
+}
+
+/* Kaydırma Çubuğu (isteğe bağlı estetik için) */
+.album-section::-webkit-scrollbar {
+    height: 8px;
+}
+
+.album-section::-webkit-scrollbar-thumb {
+    background: #fa9daf;
+    border-radius: 4px;
+}
+
+.album-section::-webkit-scrollbar-track {
+    background: #f9f9f9;
+}
+
+/* Sections for messages and poems */
+.message-section,
+.p-section {
+    background-color: rgba(255, 255, 255, 0.65);
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(127, 0, 66, 0.15);
+}
+
+/* Section headers */
+.message-section h2,
+.p-section h2 {
+    font-size: 2rem;
+    color: #5b104c;
+    margin-bottom: 1rem;
+}
+
+/* Paragraph styling */
+.message-section p,
+.p-section p {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: #3b002d;
+    margin: 0;
+}
+
+/* Add a soft fade-in effect for the container */
+.n-container {
+    animation: fadeIn 2s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(1rem);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Şifre giriş ekranı için stil */
+.password-form {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.password-form label {
+    font-size: 1.2rem;
+    color: #702459;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.password-form input {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ffc3d1;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+}
+
+.password-form button {
+    margin-top: 1rem;
+    padding: 0.5rem 1.5rem;
+    font-size: 1.1rem;
+    color: white;
+    background-color: #fa9daf;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.password-form button:hover {
+    background-color: #f08098;
+}
+
+.password-form input:focus {
+    outline: none;
+    border-color: #f08098;
+}
+
+.question-box {
+    border: 1px solid #ffc3d1;
+    padding: 20px;
+    margin-top: 15px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.question-section h3 {
+    margin-bottom: 10px;
+    font-size: 1.8rem;
+    color: #5b104c;
+}
