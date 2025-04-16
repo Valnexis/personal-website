@@ -1,0 +1,187 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap');
+body {
+    font-family: 'Quicksand', cursive;
+    background: linear-gradient(to bottom, #fff6f6, #ffeaea);
+    color: #2e2e2e;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* Başlık */
+header {
+    text-align: center;
+    background: #ffdede;
+    padding: 2rem;
+    border-bottom: 2px solid #ffa3a3;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 3rem;
+    color: #d94f4f;
+    margin: 0;
+}
+
+header p {
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: #6e6e6e;
+}
+
+section {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-bottom: 3px solid #f0caca;
+}
+
+section#mesaj {
+    background-color: #ffffff;
+}
+
+section#siir {
+    background-color: #ffffff;
+}
+
+section#sarki {
+    background-color: #ffffff;
+}
+
+h2 {
+    color: #d94f4f;
+    font-size: 2rem;
+}
+
+section p {
+    font-size: 1rem;
+    color: #4f4f4f;
+    line-height: 1.8;
+    text-align: justify;
+}
+
+/* Footer Ayarları */
+footer {
+    text-align: center;
+    padding: 1rem;
+    background: #ffe5e5;
+    font-style: italic;
+    color: #a64f4f;
+    border-top: 2px solid #ffa3a3;
+}
+
+/* Albüm Konteyner Ayarları */
+#album {
+    padding: 2rem;
+    background-color: #ffeeee;
+    max-width: 50%; /* Daha geniş bir alan için %90 */
+    margin: 2rem auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow-x: hidden; /* Ana kapsayıcı taşmayı engeller */
+}
+
+#album h2 {
+    font-family: 'Dancing Script', cursive;
+    text-align: center;
+    color: #d94f4f;
+    margin-bottom: 1.5rem;
+}
+
+.album-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    max-width: 100%;
+}
+.album-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    padding-bottom: 1rem;
+    max-width: 90%;
+}
+
+/* Albüm Liste Ayarları */
+#album-list {
+    display: flex;
+    flex-wrap: nowrap; /* Elemanlar tek satırda kalsın */
+    gap: 1rem; /* Kartlar arasında boşluk */
+    list-style-type: none; /* Noktaları kaldır */
+    padding: 0;
+    margin: 0;
+}
+
+/* Albüm Öğeleri (Kart Stilleri) */
+.album-item {
+    background: #ffffff;
+    flex: 0 0 250px; /* Yatayda genişlik: 250px */
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out; /* Hover animasyonu */
+}
+
+.album-item:hover {
+    transform: scale(1.05); /* Üzerine gelindiğinde büyüme efekti */
+}
+
+.album-item h3 {
+    margin-bottom: 0.5rem;
+    color: #721c24;
+    font-family: 'Dancing Script', cursive;
+}
+
+.album-item p {
+    margin: 0.3rem 0;
+    font-size: 0.9rem;
+    color: #4f4f4f;
+    line-height: 1.6;
+}
+
+/* Kaydırma Çubuğu (Webkit için özelleştirilmiş) */
+.album-container::-webkit-scrollbar {
+    height: 8px; /* Yatay kaydırma çubuğu yüksekliği */
+}
+
+.album-container::-webkit-scrollbar-thumb {
+    background-color: #d94f4f;
+    border-radius: 8px;
+}
+
+.album-container::-webkit-scrollbar-track {
+    background-color: #f9dcdc;
+}
+/* Düğmeler */
+#album button {
+    background-color: #d94f4f;
+    color: #fff;
+    border: none;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease-in-out;
+    z-index: 2;
+}
+
+#album #prev {
+    margin-left: -2.5rem;
+}
+
+#album #next {
+    margin-right: -2.5rem;
+}
+
+#album button:hover {
+    background-color: #a63e3e;
+}

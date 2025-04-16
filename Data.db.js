@@ -1,4 +1,3 @@
-// Data.db.js
 const albumData = [
     {
         title: "Ve işte ne olursa olsun unutamayacağım o eşsiz cümle",
@@ -66,5 +65,3 @@ const albumData = [
         description: "Bunu istiyorum bende, yarım kalan bütünlüğü..."
     }
 ];
-
-export default albumData;
