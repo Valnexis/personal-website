@@ -1,0 +1,62 @@
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem;
+}
+
+.section-card {
+    background-color: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+}
+
+.section-card:hover {
+    transform: translateY(-4px);
+}
+
+.section-card h2 {
+    margin-top: 0;
+    font-size: 1.25rem;
+}
+
+.section-card p {
+    margin: 0.5rem 0 0;
+    line-height: 1.5;
+    font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+    .bento-grid {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+    }
+
+    .section-card {
+        padding: 1rem;
+    }
+
+    .section-card h2 {
+        font-size: 1.1rem;
+    }
+
+    .section-card p {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-card {
+        padding: 0.8rem;
+    }
+
+    .section-card h2 {
+        font-size: 1rem;
+    }
+
+    .section-card p {
+        font-size: 0.9rem;
+    }
+}
