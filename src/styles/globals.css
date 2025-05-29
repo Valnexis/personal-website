@@ -11,7 +11,7 @@
 }
 body {
     margin: 0;
-    font-family: system-ui, sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
     transition: background-color 0.3s ease, color 0.3s ease;
@@ -21,10 +21,17 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 1rem 2rem;
+    min-height: 100%;
 }
 
 @media (max-width: 768px) {
     .container {
         padding: 1rem;
     }
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }

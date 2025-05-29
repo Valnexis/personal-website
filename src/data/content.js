@@ -23,6 +23,21 @@ const content = [
         id: 5,
         title: "İletişim",
         content: "E-Posta: ilgin@ilginyilmaz.com"
+    },
+    {
+        id: 6,
+        title: "İş Geçmişi",
+        content: "Frontend Developer - Freelance (2022-2024)"
+    },
+    {
+        id: 7,
+        title: "GitHub",
+        content: "<a href='https://github.com/kullaniciadi' target='_blank'>github.com/kullaniciadi</a>"
+    },
+    {
+        id: 8,
+        title: "LinkedIn",
+        content: "<a href='https://linkedin.com/in/kullaniciadi' target='_blank'>linkedin.com/in/kullaniciadi</a>"
     }
 ];
 

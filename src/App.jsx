@@ -9,6 +9,7 @@ const App = () => {
 
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme);
+        document.body.setAttribute('data-theme', theme);
     }, [theme]);
 
     const toggleTheme = () => {
@@ -16,29 +17,27 @@ const App = () => {
     };
 
     return (
-        <>
-            <Background theme={theme} />
-            <div className="container">
-                <button onClick={toggleTheme} style={{
-                    position: 'fixed',
-                    top: '1rem',
-                    right: '1rem',
-                    padding: '0.5rem 1rem',
-                    borderRadius: '6px',
-                    border: 'none',
-                    backgroundColor: '#888',
-                    color: '#fff',
-                    cursor: 'pointer',
-                    zIndex: 1000
-                }}>
-                    {theme === 'light' ? 'Dark' : 'Light'}
-                </button>
+        <div className="container">
+            <Background theme={theme}/>
+            <button onClick={toggleTheme} style={{
+                position: 'fixed',
+                top: '1rem',
+                right: '1rem',
+                padding: '0.5rem 1rem',
+                borderRadius: '6px',
+                border: 'none',
+                backgroundColor: '#888',
+                color: '#fff',
+                cursor: 'pointer',
+                zIndex: 1000
+            }}>
+                {theme === 'light' ? 'Dark' : 'Light'}
+            </button>
 
-                <Header />
-                <BentoBox />
-                {/* <Footer /> */}
-            </div>
-        </>
+            <Header />
+            <BentoBox />
+            {/* <Footer /> */}
+        </div>
     );
 };
 

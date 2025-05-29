@@ -1,43 +1,115 @@
-import React, { useEffect, useRef, useState } from "react";
-import * as THREE from 'three';
-import NET from 'vanta/dist/vanta.net.min';
+import { useEffect, useRef } from 'react';
 
-const Background = ({theme}) => {
-    const vantaRef = useRef(null);
-    const [vantaEffect, setVantaEffect] = useState(null);
+const draw = (ctx, canvas, points, mouse, themeRef) => {
+    const currentTheme = themeRef.current;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    useEffect(() => {
-        const bgColor = theme === 'dark' ? 0x1e1e1e : 0xf7f7f7;
-        if (!vantaEffect) {
-            setVantaEffect(NET({
-                el: vantaRef.current,
-                THREE,
-                color: 0x8888ff,
-                backgroundColor: bgColor,
-                points: 10.0,
-                maxDistance: 20.0,
-                spacing: 15.0
-            }));
+    points.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x <= 0 || p.x >= canvas.width) p.vx *= -1;
+        if (p.y <= 0 || p.y >= canvas.height) p.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+        ctx.fillStyle = currentTheme === 'dark' ? '#ccc' : '#444';
+        ctx.fill();
+    });
+
+    for (let i = 0; i < points.length; i++) {
+        for (let j = i + 1; j < points.length; j++) {
+            const a = points[i];
+            const b = points[j];
+            const dist = Math.hypot(a.x - b.x, a.y - b.y);
+            if (dist < 100) {
+                const opacity = 1 - dist / 100;
+                ctx.beginPath();
+                ctx.moveTo(a.x, a.y);
+                ctx.lineTo(b.x, b.y);
+                ctx.strokeStyle = currentTheme === 'dark'
+                    ? `rgba(200,200,200,${opacity})`
+                    : `rgba(80,80,80,${opacity})`;
+                ctx.stroke();
+            }
         }
 
-        return () => {
-            if (vantaEffect) vantaEffect.destroy();
-        };
-    }, [vantaEffect, theme]);
+        const mDist = Math.hypot(points[i].x - mouse.x, points[i].y - mouse.y);
+        if (mDist < 120) {
+            ctx.beginPath();
+            ctx.moveTo(points[i].x, points[i].y);
+            ctx.lineTo(mouse.x, mouse.y);
+            ctx.strokeStyle = currentTheme === 'dark'
+                ? `rgba(200,200,200,${1 - mDist / 120})`
+                : `rgba(80,80,80,${1 - mDist / 120})`;
+            ctx.stroke();
+        }
+    }
+};
 
-    return (
-        <div
-            ref={vantaRef}
-            style={{
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                zIndex: -1,
-                width: '100%',
-                height: '100%',
-            }}
-        />
-    );
+const Background = ({ theme }) => {
+    const themeRef = useRef(theme); // ⬅️ Tema değişimlerini takip etmek için ref
+
+    useEffect(() => {
+        themeRef.current = theme; // ⬅️ Her tema değişiminde güncelle
+    }, [theme]);
+
+    useEffect(() => {
+        const canvas = document.createElement('canvas');
+        canvas.id = 'bg-canvas';
+        canvas.style.position = 'fixed';
+        canvas.style.top = 0;
+        canvas.style.left = 0;
+        canvas.style.zIndex = -1;
+        canvas.style.pointerEvents = 'none';
+        canvas.style.width = '100vw';
+        canvas.style.height = '100vh';
+
+        document.body.appendChild(canvas);
+
+        const ctx = canvas.getContext('2d');
+        const points = [];
+
+        const resizeCanvas = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        };
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        let mouse = { x: 0, y: 0 };
+
+        const createPoint = () => ({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: (Math.random() - 0.5) * 0.5,
+            vy: (Math.random() - 0.5) * 0.5
+        });
+
+        for (let i = 0; i < 100; i++) points.push(createPoint());
+
+        document.addEventListener('mousemove', e => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        let animationFrameId;
+
+        const startDrawing = () => {
+            draw(ctx, canvas, points, mouse, themeRef);
+            animationFrameId = requestAnimationFrame(startDrawing);
+        };
+
+        startDrawing();
+
+        return () => {
+            window.removeEventListener('resize', resizeCanvas);
+            document.body.removeChild(canvas);
+            cancelAnimationFrame(animationFrameId);
+        };
+    }, []);
+
+    return null;
 };
 
 export default Background;
