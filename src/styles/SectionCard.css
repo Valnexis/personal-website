@@ -1,0 +1,48 @@
+.section-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    padding: 1.5rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    color: #f1f1f1;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.section-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+}
+
+.section-card h2 {
+    font-size: 1.2rem;
+    margin: 0 0 0.5rem;
+}
+
+.section-subtitle {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    margin-top: -0.5rem;
+    margin-bottom: 1rem;
+}
+
+.section-card-content a {
+    color: rgba(106, 0, 255);
+    text-decoration: none;
+}
+
+.section-card-content a:hover {
+    text-decoration: underline;
+}
+
+.section-card.profile {
+    grid-column: span 2;
+}
+
+.section-card.social {
+    text-align: center;
+}
+
+.section-card.experience {
+    grid-row: span 1;
+}

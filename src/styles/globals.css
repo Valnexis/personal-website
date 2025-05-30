@@ -1,20 +1,44 @@
 :root {
-    --bg-color: #f7f7f7;
-    --text-color: #222;
-    --card-bg: #ffffff;
+    --bg-color: #0e0e0e;
+    --text-color: #eee;
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --accent-color: #4ea8ff;
 }
 
-[data-theme="dark"] {
-    --bg-color: #1e1e1e;
-    --text-color: #f1f1f1;
-    --card-bg: #2c2c2c;
-}
 body {
-    margin: 0;
     font-family: 'Space Grotesk', sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    transition: background-color 0.3s ease, color 0.3s ease;
+    background-color: #0e0e0e;
+    color: #eee;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    overflow-x: hidden;
+}
+body::before {
+    content: "";
+    position: fixed;
+    top: -20%;
+    left: -10%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(106, 0, 255, 0.2), transparent 60%);
+    z-index: -2;
+    pointer-events: none;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: linear-gradient(0deg, rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.5;
 }
 
 .container {

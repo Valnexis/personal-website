@@ -47,7 +47,7 @@ const draw = (ctx, canvas, points, mouse, themeRef) => {
 };
 
 const Background = ({ theme }) => {
-    const themeRef = useRef(theme); // ⬅️ Tema değişimlerini takip etmek için ref
+    const themeRef = useRef(theme);
 
     useEffect(() => {
         themeRef.current = theme; // ⬅️ Her tema değişiminde güncelle
