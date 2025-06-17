@@ -44,5 +44,31 @@
 }
 
 .section-card.experience {
-    grid-row: span 1;
+    grid-row: span 2;
+    grid-column: span 2;
+}
+
+.section-card.toolbox,
+.section-card.education,
+.section-card.now {
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.profile-card {
+    grid-column: span 2;
+}
+
+.profile-content {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.profile-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.2);
 }

@@ -9,6 +9,8 @@
 body {
     font-family: 'Space Grotesk', sans-serif;
     background-color: #0e0e0e;
+    background-blend-mode: screen;
+    background-size: cover;
     color: #eee;
     margin: 0;
     padding: 0;
@@ -34,11 +36,13 @@ body::after {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-image: linear-gradient(0deg, rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-image:
+            linear-gradient(0deg, rgba(255,255,255,0.015) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
     background-size: 40px 40px;
     z-index: -1;
     pointer-events: none;
-    opacity: 0.5;
+    opacity: 0.4;
 }
 
 .container {
@@ -58,4 +62,12 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+}
+
+.greeting {
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    color: #ccc;
 }

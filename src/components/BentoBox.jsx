@@ -8,13 +8,14 @@ import SocialCard from "./SocialCard.jsx";
 const BentoBox = () => {
     return (
         <div className="bento-grid">
-            {content.map((item) => (
+            {content.map((item, index) => (
                 <SectionCard
                     key={item.id}
                     title={item.title}
                     subtitle={item.subtitle}
                     content={item.content}
                     type={item.type}
+                    style={{ animationDelay: `${index * 100}ms` }}
                 />
             ))}
             {socials.map((social) => (
