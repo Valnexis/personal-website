@@ -20,7 +20,7 @@ const socials = [
     {
         id: 'resume',
         icon: '/src/assets/resume.svg',
-        url: 'ilginyilmaz.com/resume.pdf',
+        url: 'https://ilginyilmaz.com/resume.pdf',
         alt: 'Resume'
     }
 ];

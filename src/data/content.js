@@ -45,7 +45,7 @@ const content = [
         content: `
         <ul>
             <li>Developing this website</li>
-            <li>Working on a emergency messaging app using BLE</li>
+            <li>Working on an emergency messaging app using BLE</li>
             <li>Planning to work on privacy focused services</li>
         </ul>
         `,

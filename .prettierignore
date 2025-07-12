@@ -1,0 +1,28 @@
+# Build output
+dist/
+build/
+
+# Node modules
+node_modules/
+
+# Coverage reports
+coverage/
+
+# Environment files
+.env
+.env.*
+
+# Log files
+*.log
+
+# Package files
+package-lock.json
+yarn.lock
+
+# Generated files
+*.generated.*
+
+# Other
+.DS_Store
+.idea/
+.vscode/

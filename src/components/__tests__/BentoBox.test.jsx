@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import BentoBox from '../BentoBox';
+import DOMPurify from 'dompurify';
 
 // Mock the content and social data
 jest.mock('../../data/content', () => [
@@ -41,7 +42,7 @@ jest.mock('../SectionCard', () => {
       <div data-testid="section-card" data-type={props.type}>
         <h2>{props.title}</h2>
         {props.subtitle && <p data-testid="section-subtitle">{props.subtitle}</p>}
-        <div dangerouslySetInnerHTML={{ __html: props.content }} />
+        <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(props.content) }} />
       </div>
     );
   };

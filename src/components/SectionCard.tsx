@@ -1,6 +1,7 @@
 import React, { CSSProperties } from 'react';
 import '../styles/SectionCard.css';
 import profilePic from '../assets/profile.jpg';
+import DOMPurify from 'dompurify';
 
 interface SectionCardProps {
   title: string;
@@ -21,7 +22,7 @@ const SectionCard: React.FC<SectionCardProps> = ({ title, subtitle, content, typ
                         {subtitle && <p className="section-subtitle">{subtitle}</p>}
                         <div
                             className="section-card-content"
-                            dangerouslySetInnerHTML={{ __html: content }}
+                            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}
                         />
                     </div>
                 </div>
@@ -37,7 +38,7 @@ const SectionCard: React.FC<SectionCardProps> = ({ title, subtitle, content, typ
             </div>
             <div
                 className="section-card-content"
-                dangerouslySetInnerHTML={{ __html: content }}
+                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}
             />
         </div>
     );

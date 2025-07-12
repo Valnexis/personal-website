@@ -83,6 +83,55 @@ describe('MyComponent', () => {
 - Test setup is in `jest.setup.js`
 - CSS and image imports are mocked for testing
 
+## CI/CD Pipeline
+
+This project uses GitHub Actions for continuous integration and deployment.
+
+### Workflow
+
+The CI/CD pipeline automatically:
+1. Runs linting checks
+2. Performs type checking
+3. Executes all tests
+4. Builds the application
+5. Deploys to GitHub Pages (only on pushes to main/master branches)
+
+### Triggers
+
+The pipeline is triggered on:
+- Push to main/master branches
+- Pull requests to main/master branches
+- Manual trigger via GitHub Actions interface
+
+### Viewing Results
+
+You can view the CI/CD pipeline results in the Actions tab of the GitHub repository.
+
+## Performance Optimizations
+
+### Code Splitting
+
+This project implements code splitting using React.lazy() and Suspense to reduce the initial bundle size and improve loading performance. Components that are not critical for the initial render are loaded lazily:
+
+```jsx
+import React, { Suspense, lazy } from 'react';
+
+// Lazy load components
+const Background = lazy(() => import("./components/Background.jsx"));
+const BentoBox = lazy(() => import('./components/BentoBox'));
+
+// Use with Suspense
+<Suspense fallback={<LoadingComponent />}>
+  <Background />
+</Suspense>
+```
+
+Benefits of this approach:
+- Smaller initial bundle size
+- Faster initial page load
+- Components load only when needed
+- Better user experience, especially on slower connections
+
 ## Technologies
 
 - React
@@ -90,3 +139,4 @@ describe('MyComponent', () => {
 - Vite
 - Jest
 - React Testing Library
+- GitHub Actions
