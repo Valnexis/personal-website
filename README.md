@@ -1,12 +1,92 @@
-# React + Vite
+# Personal Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a personal website built with React and Vite, featuring a modern bento-box style layout.
 
-Currently, two official plugins are available:
+## Getting Started
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Prerequisites
 
-## Expanding the ESLint configuration
+- Node.js (v16 or higher)
+- npm or yarn
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/personal-website.git
+cd personal-website
+
+# Install dependencies
+npm install
+```
+
+### Development
+
+```bash
+# Start the development server
+npm run dev
+```
+
+### Building for Production
+
+```bash
+# Build the project
+npm run build
+
+# Preview the production build
+npm run preview
+```
+
+## Testing
+
+This project uses Jest and React Testing Library for testing React components.
+
+### Running Tests
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run tests with coverage report
+npm run test:coverage
+```
+
+### Test Structure
+
+- Tests are located in `__tests__` directories next to the components they test
+- Test files use the naming convention `ComponentName.test.jsx` or `ComponentName.test.tsx`
+- Mock files for handling imports like images are located in the `__mocks__` directory
+
+### Writing Tests
+
+Example of a component test:
+
+```jsx
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import MyComponent from '../MyComponent';
+
+describe('MyComponent', () => {
+  test('renders correctly', () => {
+    render(<MyComponent />);
+    expect(screen.getByText('Hello World')).toBeInTheDocument();
+  });
+});
+```
+
+### Testing Configuration
+
+- Jest configuration is in `jest.config.js`
+- Test setup is in `jest.setup.js`
+- CSS and image imports are mocked for testing
+
+## Technologies
+
+- React
+- TypeScript
+- Vite
+- Jest
+- React Testing Library

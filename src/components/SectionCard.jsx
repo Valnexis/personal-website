@@ -10,7 +10,7 @@ const SectionCard = ({ title, subtitle, content, type, style }) => {
                     <img src={profilePic} alt="Profile" className="profile-image" />
                     <div>
                         <h2>{title}</h2>
-                        {subtitle && <p className="section-subtitle">{subtitle}</p>}
+                        {subtitle && <p className="section-subtitle" data-testid="section-subtitle">{subtitle}</p>}
                         <div
                             className="section-card-content"
                             dangerouslySetInnerHTML={{ __html: content }}
@@ -25,7 +25,7 @@ const SectionCard = ({ title, subtitle, content, type, style }) => {
         <div className={`section-card ${type}`} style={style}>
             <div className="section-card-header">
                 <h2>{title}</h2>
-                {subtitle && <p className="section-subtitle">{subtitle}</p>}
+                {subtitle && <p className="section-subtitle" data-testid="section-subtitle">{subtitle}</p>}
             </div>
             <div
                 className="section-card-content"
