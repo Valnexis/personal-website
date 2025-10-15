@@ -1,7 +1,7 @@
-import { useEffect, useRef} from "react";
+import { useEffect } from "react";
 
 const draw = (ctx, canvas, points, mouse) => {
-    ctx.clearReact(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     points.forEach(p => {
         p.x += p.vx;
@@ -11,7 +11,7 @@ const draw = (ctx, canvas, points, mouse) => {
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
-        ctx.fillStyle = '#444';
+        ctx.fillStyle = '#999';
         ctx.fill();
     });
 
@@ -48,7 +48,6 @@ const Background = () => {
         canvas.style.position = 'fixed';
         canvas.style.top = '0';
         canvas.style.left = '0';
-        canvas.style.zIndex = -1;
         canvas.style.pointerEvents = 'none';
         canvas.style.width = '100vw';
         canvas.style.height = '100vh';
