@@ -1,5 +1,5 @@
 import React from 'react';
-import BentoBox from './components/BentoBox.jsx';
+import Content from './components/Content.jsx';
 import Background from './components/Background.jsx';
 import Greeting from './components/Greeting.jsx';
 
@@ -8,7 +8,7 @@ const App = () => {
         <div className="container">
             <Background />
             <Greeting />
-            <BentoBox />
+            <Content />
         </div>
     );
 };

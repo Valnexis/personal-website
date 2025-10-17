@@ -4,15 +4,15 @@ import '../styles/bento.css';
 import socials from '../data/social.js';
 import SocialCard from './SocialCard.jsx';
 
-const BentoBox = () => {
+const BentoBox = ({ personId = 'person1' }) => {
     const [content, setContent] = useState([]);
 
     useEffect(() => {
         const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3001';
         const fetchContent = async () => {
-            console.log('Fetching content from backend...', API_BASE + '/api/content');
+            console.log('Fetching content from backend...', API_BASE + `/api/content?person_id=${personId}`);
             try {
-                const response = await fetch(`${API_BASE}/api/content`);
+                const response = await fetch(`${API_BASE}/api/content?person_id=${personId}`);
                 console.log('Raw response:', response);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -23,18 +23,18 @@ const BentoBox = () => {
                     console.log('Parsed data:', data);
                     setContent(data);
                 } else {
-                    // log the raw HTML/text body to help debugging
                     const rawText = await response.text();
                     console.error('Unexpected response format:', rawText);
                     throw new Error('Response is not JSON');
                 }
             } catch (error) {
                 console.error('Error fetching content:', error);
+                setContent([]);
             }
         };
 
         fetchContent();
-    }, []);
+    }, [personId]);
 
     return (
         <div className="bento-grid">
