@@ -13,11 +13,14 @@ import {
   Avatar,
   Chip,
   Paper,
+  useTheme,
 } from '@mui/material';
 import { portfolioAPI } from '@/lib/api';
 import { User } from '@/types/user';
+import { validateImageUrl } from '@/lib/utils';
 
 export default function Home() {
+  const theme = useTheme();
   const [portfolios, setPortfolios] = useState<User[]>([]);
   const [selectedProfile, setSelectedProfile] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -41,11 +44,11 @@ export default function Home() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, minHeight: '100vh', bgcolor: '#0f0f1a' }}>
+    <Box sx={{ flexGrow: 1, minHeight: '100vh', bgcolor: theme.palette.background.default }}>
       <AppBar 
         position="static" 
         sx={{ 
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
           boxShadow: '0 4px 20px rgba(0,0,0,0.3)'
         }}
       >
@@ -71,7 +74,7 @@ export default function Home() {
 
       {loading ? (
         <Box display="flex" justifyContent="center" alignItems="center" minHeight="80vh">
-          <CircularProgress size={60} sx={{ color: '#667eea' }} />
+          <CircularProgress size={60} sx={{ color: theme.palette.primary.main }} />
         </Box>
       ) : portfolios.length === 0 ? (
         <Box textAlign="center" py={12}>
@@ -114,7 +117,7 @@ export default function Home() {
                   variant={selectedProfile?._id === user._id ? 'contained' : 'outlined'}
                   sx={{
                     background: selectedProfile?._id === user._id 
-                      ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+                      ? `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`
                       : 'transparent',
                     color: '#fff',
                     borderColor: 'rgba(255,255,255,0.3)',
@@ -125,10 +128,10 @@ export default function Home() {
                     textTransform: 'none',
                     fontSize: '1rem',
                     '&:hover': {
-                      borderColor: '#667eea',
+                      borderColor: theme.palette.primary.main,
                       bgcolor: selectedProfile?._id === user._id 
                         ? undefined
-                        : 'rgba(102, 126, 234, 0.1)',
+                        : `rgba(${parseInt(theme.palette.primary.main.slice(1,3), 16)}, ${parseInt(theme.palette.primary.main.slice(3,5), 16)}, ${parseInt(theme.palette.primary.main.slice(5,7), 16)}, 0.1)`,
                     },
                     transition: 'all 0.3s ease',
                   }}
@@ -161,7 +164,7 @@ export default function Home() {
                     gridColumn: { xs: 'span 1', sm: 'span 2', md: 'span 2' },
                     gridRow: 'span 2',
                     p: 4,
-                    background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%)',
+                    background: `linear-gradient(135deg, rgba(${parseInt(theme.palette.primary.main.slice(1,3), 16)}, ${parseInt(theme.palette.primary.main.slice(3,5), 16)}, ${parseInt(theme.palette.primary.main.slice(5,7), 16)}, 0.15) 0%, rgba(${parseInt(theme.palette.secondary.main.slice(1,3), 16)}, ${parseInt(theme.palette.secondary.main.slice(3,5), 16)}, ${parseInt(theme.palette.secondary.main.slice(5,7), 16)}, 0.15) 100%)`,
                     backdropFilter: 'blur(10px)',
                     border: '1px solid rgba(255,255,255,0.1)',
                     borderRadius: 4,
@@ -177,12 +180,12 @@ export default function Home() {
                     },
                     '&:hover': {
                       transform: 'translateY(-5px)',
-                      boxShadow: '0 20px 40px rgba(102, 126, 234, 0.3)',
+                      boxShadow: `0 20px 40px rgba(${parseInt(theme.palette.primary.main.slice(1,3), 16)}, ${parseInt(theme.palette.primary.main.slice(3,5), 16)}, ${parseInt(theme.palette.primary.main.slice(5,7), 16)}, 0.3)`,
                     },
                   }}
                 >
                   <Avatar
-                    src={selectedProfile.profileImage}
+                    src={validateImageUrl(selectedProfile.profileImage)}
                     alt={selectedProfile.name}
                     sx={{
                       width: 150,
@@ -221,7 +224,7 @@ export default function Home() {
                     gridColumn: { xs: 'span 1', md: 'span 1' },
                     gridRow: 'span 2',
                     p: 3,
-                    background: 'rgba(255, 255, 255, 0.05)',
+                    background: theme.palette.background.paper,
                     backdropFilter: 'blur(10px)',
                     border: '1px solid rgba(255,255,255,0.1)',
                     borderRadius: 4,
@@ -229,7 +232,7 @@ export default function Home() {
                     animation: 'fadeIn 0.6s ease-in',
                     '&:hover': {
                       transform: 'translateY(-5px)',
-                      boxShadow: '0 20px 40px rgba(118, 75, 162, 0.3)',
+                      boxShadow: `0 20px 40px rgba(${parseInt(theme.palette.secondary.main.slice(1,3), 16)}, ${parseInt(theme.palette.secondary.main.slice(3,5), 16)}, ${parseInt(theme.palette.secondary.main.slice(5,7), 16)}, 0.3)`,
                     },
                   }}
                 >
@@ -239,7 +242,7 @@ export default function Home() {
                       color: '#fff', 
                       fontWeight: 700, 
                       mb: 2,
-                      borderBottom: '2px solid rgba(102, 126, 234, 0.5)',
+                      borderBottom: `2px solid rgba(${parseInt(theme.palette.primary.main.slice(1,3), 16)}, ${parseInt(theme.palette.primary.main.slice(3,5), 16)}, ${parseInt(theme.palette.primary.main.slice(5,7), 16)}, 0.5)`,
                       pb: 1
                     }}
                   >
@@ -262,7 +265,7 @@ export default function Home() {
                   sx={{
                     gridColumn: { xs: 'span 1', sm: 'span 2' },
                     p: 3,
-                    background: 'rgba(255, 255, 255, 0.05)',
+                    background: theme.palette.background.paper,
                     backdropFilter: 'blur(10px)',
                     border: '1px solid rgba(255,255,255,0.1)',
                     borderRadius: 4,
@@ -270,7 +273,7 @@ export default function Home() {
                     animation: 'fadeIn 0.7s ease-in',
                     '&:hover': {
                       transform: 'translateY(-5px)',
-                      boxShadow: '0 20px 40px rgba(102, 126, 234, 0.3)',
+                      boxShadow: `0 20px 40px rgba(${parseInt(theme.palette.primary.main.slice(1,3), 16)}, ${parseInt(theme.palette.primary.main.slice(3,5), 16)}, ${parseInt(theme.palette.primary.main.slice(5,7), 16)}, 0.3)`,
                     },
                   }}
                 >
@@ -280,7 +283,7 @@ export default function Home() {
                       color: '#fff', 
                       fontWeight: 700, 
                       mb: 2,
-                      borderBottom: '2px solid rgba(118, 75, 162, 0.5)',
+                      borderBottom: `2px solid rgba(${parseInt(theme.palette.secondary.main.slice(1,3), 16)}, ${parseInt(theme.palette.secondary.main.slice(3,5), 16)}, ${parseInt(theme.palette.secondary.main.slice(5,7), 16)}, 0.5)`,
                       pb: 1
                     }}
                   >
@@ -293,12 +296,12 @@ export default function Home() {
                           key={index}
                           label={skill}
                           sx={{
-                            background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%)',
+                            background: `linear-gradient(135deg, rgba(${parseInt(theme.palette.primary.main.slice(1,3), 16)}, ${parseInt(theme.palette.primary.main.slice(3,5), 16)}, ${parseInt(theme.palette.primary.main.slice(5,7), 16)}, 0.3) 0%, rgba(${parseInt(theme.palette.secondary.main.slice(1,3), 16)}, ${parseInt(theme.palette.secondary.main.slice(3,5), 16)}, ${parseInt(theme.palette.secondary.main.slice(5,7), 16)}, 0.3) 100%)`,
                             color: '#fff',
                             fontWeight: 600,
                             border: '1px solid rgba(255,255,255,0.2)',
                             '&:hover': {
-                              background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.5) 0%, rgba(118, 75, 162, 0.5) 100%)',
+                              background: `linear-gradient(135deg, rgba(${parseInt(theme.palette.primary.main.slice(1,3), 16)}, ${parseInt(theme.palette.primary.main.slice(3,5), 16)}, ${parseInt(theme.palette.primary.main.slice(5,7), 16)}, 0.5) 0%, rgba(${parseInt(theme.palette.secondary.main.slice(1,3), 16)}, ${parseInt(theme.palette.secondary.main.slice(3,5), 16)}, ${parseInt(theme.palette.secondary.main.slice(5,7), 16)}, 0.5) 100%)`,
                             },
                           }}
                         />
@@ -318,7 +321,7 @@ export default function Home() {
                     gridColumn: { xs: 'span 1', sm: 'span 2', md: 'span 1' },
                     gridRow: { md: 'span 2' },
                     p: 3,
-                    background: 'rgba(255, 255, 255, 0.05)',
+                    background: theme.palette.background.paper,
                     backdropFilter: 'blur(10px)',
                     border: '1px solid rgba(255,255,255,0.1)',
                     borderRadius: 4,
@@ -328,7 +331,7 @@ export default function Home() {
                     maxHeight: '500px',
                     '&:hover': {
                       transform: 'translateY(-5px)',
-                      boxShadow: '0 20px 40px rgba(118, 75, 162, 0.3)',
+                      boxShadow: `0 20px 40px rgba(${parseInt(theme.palette.secondary.main.slice(1,3), 16)}, ${parseInt(theme.palette.secondary.main.slice(3,5), 16)}, ${parseInt(theme.palette.secondary.main.slice(5,7), 16)}, 0.3)`,
                     },
                   }}
                 >
@@ -338,7 +341,7 @@ export default function Home() {
                       color: '#fff', 
                       fontWeight: 700, 
                       mb: 2,
-                      borderBottom: '2px solid rgba(102, 126, 234, 0.5)',
+                      borderBottom: `2px solid rgba(${parseInt(theme.palette.primary.main.slice(1,3), 16)}, ${parseInt(theme.palette.primary.main.slice(3,5), 16)}, ${parseInt(theme.palette.primary.main.slice(5,7), 16)}, 0.5)`,
                       pb: 1
                     }}
                   >
@@ -357,7 +360,7 @@ export default function Home() {
                             transition: 'all 0.2s ease',
                             '&:hover': {
                               background: 'rgba(255, 255, 255, 0.08)',
-                              borderColor: 'rgba(102, 126, 234, 0.5)',
+                              borderColor: `rgba(${parseInt(theme.palette.primary.main.slice(1,3), 16)}, ${parseInt(theme.palette.primary.main.slice(3,5), 16)}, ${parseInt(theme.palette.primary.main.slice(5,7), 16)}, 0.5)`,
                             },
                           }}
                         >
@@ -388,10 +391,10 @@ export default function Home() {
                               size="small"
                               sx={{
                                 mt: 1,
-                                color: '#667eea',
+                                color: theme.palette.primary.main,
                                 textTransform: 'none',
                                 '&:hover': {
-                                  background: 'rgba(102, 126, 234, 0.1)',
+                                  background: `rgba(${parseInt(theme.palette.primary.main.slice(1,3), 16)}, ${parseInt(theme.palette.primary.main.slice(3,5), 16)}, ${parseInt(theme.palette.primary.main.slice(5,7), 16)}, 0.1)`,
                                 },
                               }}
                             >

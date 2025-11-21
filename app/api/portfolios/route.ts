@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import User from '@/models/User';
+import { generateAvatarDataUrl } from '@/lib/utils';
 
 // Sample data for demonstration when database is unavailable
 const samplePortfolios = [
@@ -10,7 +11,7 @@ const samplePortfolios = [
     email: 'sarah@example.com',
     bio: 'Full-stack developer with 5+ years of experience building scalable web applications. Passionate about creating intuitive user experiences and clean, maintainable code.',
     skills: ['React', 'Node.js', 'TypeScript', 'MongoDB', 'AWS', 'Docker', 'GraphQL', 'Next.js'],
-    profileImage: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="300" height="300"%3E%3Crect fill="%23667eea" width="300" height="300"/%3E%3Ctext fill="%23fff" font-size="100" font-family="Arial" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3ESJ%3C/text%3E%3C/svg%3E',
+    profileImage: generateAvatarDataUrl('SJ', '#667eea'),
     portfolioItems: [
       {
         title: 'E-commerce Platform',
@@ -30,7 +31,7 @@ const samplePortfolios = [
     email: 'michael@example.com',
     bio: 'UI/UX Designer and Frontend Developer specializing in creating beautiful, accessible web experiences. Love turning complex problems into simple, elegant solutions.',
     skills: ['Figma', 'JavaScript', 'CSS', 'React', 'Vue.js', 'Tailwind', 'Animation', 'Accessibility'],
-    profileImage: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="300" height="300"%3E%3Crect fill="%23764ba2" width="300" height="300"/%3E%3Ctext fill="%23fff" font-size="100" font-family="Arial" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3EMC%3C/text%3E%3C/svg%3E',
+    profileImage: generateAvatarDataUrl('MC', '#764ba2'),
     portfolioItems: [
       {
         title: 'Design System',
@@ -55,7 +56,7 @@ const samplePortfolios = [
     email: 'emily@example.com',
     bio: 'Data scientist and machine learning engineer focused on building AI-powered solutions. Experienced in NLP, computer vision, and predictive analytics.',
     skills: ['Python', 'TensorFlow', 'PyTorch', 'Scikit-learn', 'SQL', 'Data Visualization', 'ML Ops'],
-    profileImage: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="300" height="300"%3E%3Crect fill="%2366c2a5" width="300" height="300"/%3E%3Ctext fill="%23fff" font-size="100" font-family="Arial" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3EER%3C/text%3E%3C/svg%3E',
+    profileImage: generateAvatarDataUrl('ER', '#66c2a5'),
     portfolioItems: [
       {
         title: 'Sentiment Analysis Tool',
