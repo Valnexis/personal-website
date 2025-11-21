@@ -64,3 +64,17 @@ The database is automatically seeded with 3 sample profiles:
 3. Marcus Rodriguez - DevOps Engineer & Cloud Architect
 
 You can modify the seed data in `server.js` to customize the profiles.
+
+## Security
+
+This application implements several security measures:
+- **Input Validation**: All user inputs are validated before processing
+- **XSS Prevention**: HTML escaping is applied to all dynamic content
+- **SQL Injection Protection**: Prepared statements are used for all database queries
+- **URL Validation**: External links are validated before rendering
+
+**Note**: This application is designed for local/development use. For production deployment, consider adding:
+- Rate limiting for API endpoints
+- HTTPS/TLS encryption
+- Environment-based configuration
+- Additional authentication if needed
