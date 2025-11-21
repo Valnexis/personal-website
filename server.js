@@ -2,16 +2,27 @@ const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const cors = require('cors');
 const path = require('path');
+const rateLimit = require('express-rate-limit');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Rate limiting
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per windowMs
+  message: 'Too many requests from this IP, please try again later.'
+});
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
+app.use('/api/', apiLimiter);
 
 // Initialize SQLite database
+// Using in-memory database for demo purposes. Data is reset on server restart.
+// For production, use a persistent database file: new sqlite3.Database('database.db')
 const db = new sqlite3.Database(':memory:', (err) => {
   if (err) {
     console.error('Error opening database:', err);
@@ -121,7 +132,14 @@ app.get('/api/profiles', (req, res) => {
 
 app.get('/api/profiles/:id', (req, res) => {
   const { id } = req.params;
-  db.get('SELECT * FROM profiles WHERE id = ?', [id], (err, row) => {
+  
+  // Validate ID parameter
+  if (!id || isNaN(id) || parseInt(id) < 1) {
+    res.status(400).json({ error: 'Invalid profile ID' });
+    return;
+  }
+  
+  db.get('SELECT * FROM profiles WHERE id = ?', [parseInt(id)], (err, row) => {
     if (err) {
       res.status(500).json({ error: err.message });
       return;
