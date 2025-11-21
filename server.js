@@ -189,14 +189,20 @@ app.get('/api/persons', (req, res) => {
 app.get('/api/person/:id', (req, res) => {
   const { id } = req.params;
   
-  const person = db.prepare('SELECT * FROM persons WHERE id = ?').get(id);
+  // Validate that id is a positive integer
+  const personId = parseInt(id, 10);
+  if (!personId || personId < 1 || !Number.isInteger(personId)) {
+    return res.status(400).json({ error: 'Invalid person ID' });
+  }
+  
+  const person = db.prepare('SELECT * FROM persons WHERE id = ?').get(personId);
   if (!person) {
     return res.status(404).json({ error: 'Person not found' });
   }
 
-  const skills = db.prepare('SELECT name, level FROM skills WHERE person_id = ?').all(id);
-  const projects = db.prepare('SELECT * FROM projects WHERE person_id = ?').all(id);
-  const experience = db.prepare('SELECT * FROM experience WHERE person_id = ?').all(id);
+  const skills = db.prepare('SELECT name, level FROM skills WHERE person_id = ?').all(personId);
+  const projects = db.prepare('SELECT * FROM projects WHERE person_id = ?').all(personId);
+  const experience = db.prepare('SELECT * FROM experience WHERE person_id = ?').all(personId);
 
   res.json({
     ...person,

@@ -1,6 +1,28 @@
 // State management
 let currentPersonId = null;
 
+// Security: HTML escaping function to prevent XSS
+function escapeHtml(text) {
+    const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+    return text.replace(/[&<>"']/g, m => map[m]);
+}
+
+// Security: URL validation function
+function isValidUrl(string) {
+    try {
+        const url = new URL(string.startsWith('http') ? string : `https://${string}`);
+        return url.protocol === 'http:' || url.protocol === 'https:';
+    } catch (_) {
+        return false;
+    }
+}
+
 // DOM Elements
 const personSelectionModal = document.getElementById('personSelectionModal');
 const loadingIndicator = document.getElementById('loadingIndicator');
@@ -40,10 +62,10 @@ function createPersonCard(person) {
     const initials = person.name.split(' ').map(n => n[0]).join('');
     
     card.innerHTML = `
-        <div class="person-avatar">${initials}</div>
+        <div class="person-avatar">${escapeHtml(initials)}</div>
         <div class="person-info">
-            <h3>${person.name}</h3>
-            <p>${person.title}</p>
+            <h3>${escapeHtml(person.name)}</h3>
+            <p>${escapeHtml(person.title)}</p>
         </div>
     `;
     
@@ -121,10 +143,10 @@ function renderContactInfo(data) {
             const item = document.createElement('div');
             item.className = 'contact-item';
             item.innerHTML = `
-                <div class="contact-icon">${contact.icon}</div>
+                <div class="contact-icon">${escapeHtml(contact.icon)}</div>
                 <div class="contact-details">
-                    <div class="contact-label">${contact.label}</div>
-                    <div class="contact-value">${contact.value}</div>
+                    <div class="contact-label">${escapeHtml(contact.label)}</div>
+                    <div class="contact-value">${escapeHtml(contact.value)}</div>
                 </div>
             `;
             contactInfo.appendChild(item);
@@ -140,13 +162,14 @@ function renderSkills(skills) {
     skills.forEach((skill, index) => {
         const item = document.createElement('div');
         item.className = 'skill-item';
+        const safeLevel = parseInt(skill.level, 10) || 0;
         item.innerHTML = `
             <div class="skill-header">
-                <span class="skill-name">${skill.name}</span>
-                <span class="skill-level">${skill.level}%</span>
+                <span class="skill-name">${escapeHtml(skill.name)}</span>
+                <span class="skill-level">${safeLevel}%</span>
             </div>
             <div class="skill-bar">
-                <div class="skill-progress" data-width="${skill.level}" style="width: 0%"></div>
+                <div class="skill-progress" data-width="${safeLevel}" style="width: 0%"></div>
             </div>
         `;
         skillsList.appendChild(item);
@@ -154,7 +177,7 @@ function renderSkills(skills) {
         // Animate progress bar after a short delay
         setTimeout(() => {
             const progressBar = item.querySelector('.skill-progress');
-            progressBar.style.width = skill.level + '%';
+            progressBar.style.width = safeLevel + '%';
         }, 100 + (index * 50));
     });
 }
@@ -169,13 +192,20 @@ function renderProjects(projects) {
         item.className = 'project-item';
         
         const technologies = project.technologies ? project.technologies.split(',').map(t => t.trim()) : [];
-        const techTags = technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('');
+        const techTags = technologies.map(tech => `<span class="tech-tag">${escapeHtml(tech)}</span>`).join('');
+        
+        // Validate and sanitize URL
+        let projectLink = '';
+        if (project.url && isValidUrl(project.url)) {
+            const safeUrl = escapeHtml(project.url);
+            projectLink = `<a href="${safeUrl}" class="project-link" target="_blank" rel="noopener">View Project →</a>`;
+        }
         
         item.innerHTML = `
-            <div class="project-title">${project.title}</div>
-            <div class="project-description">${project.description}</div>
+            <div class="project-title">${escapeHtml(project.title)}</div>
+            <div class="project-description">${escapeHtml(project.description)}</div>
             ${technologies.length > 0 ? `<div class="project-tech">${techTags}</div>` : ''}
-            ${project.url ? `<a href="${project.url}" class="project-link" target="_blank" rel="noopener">View Project →</a>` : ''}
+            ${projectLink}
         `;
         projectsList.appendChild(item);
     });
@@ -191,11 +221,11 @@ function renderExperience(experiences) {
         item.className = 'experience-item';
         item.innerHTML = `
             <div class="experience-header">
-                <div class="experience-company">${exp.company}</div>
-                <div class="experience-position">${exp.position}</div>
-                <div class="experience-duration">${exp.duration}</div>
+                <div class="experience-company">${escapeHtml(exp.company)}</div>
+                <div class="experience-position">${escapeHtml(exp.position)}</div>
+                <div class="experience-duration">${escapeHtml(exp.duration)}</div>
             </div>
-            ${exp.description ? `<div class="experience-description">${exp.description}</div>` : ''}
+            ${exp.description ? `<div class="experience-description">${escapeHtml(exp.description)}</div>` : ''}
         `;
         experienceList.appendChild(item);
     });
@@ -214,15 +244,16 @@ function renderSocialLinks(data) {
     ];
     
     socials.forEach(social => {
-        if (social.value) {
+        if (social.value && isValidUrl(social.value)) {
             const link = document.createElement('a');
             link.className = 'social-link';
-            link.href = social.value.startsWith('http') ? social.value : `https://${social.value}`;
+            const safeUrl = social.value.startsWith('http') ? social.value : `https://${social.value}`;
+            link.href = safeUrl;
             link.target = '_blank';
             link.rel = 'noopener noreferrer';
             link.innerHTML = `
-                <div class="social-icon">${social.icon}</div>
-                <div class="social-label">${social.label}</div>
+                <div class="social-icon">${escapeHtml(social.icon)}</div>
+                <div class="social-label">${escapeHtml(social.label)}</div>
             `;
             socialLinks.appendChild(link);
         }
