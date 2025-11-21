@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Bento Grid</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Profile Selector -->
+        <div class="profile-selector">
+            <h1>Select a Profile</h1>
+            <div class="profile-buttons" id="profileButtons">
+                <!-- Buttons will be dynamically generated -->
+            </div>
+        </div>
+
+        <!-- Bento Grid Layout -->
+        <div class="bento-grid" id="bentoGrid">
+            <!-- Profile Card -->
+            <div class="bento-item profile-card" id="profileCard">
+                <div class="profile-header">
+                    <img src="" alt="Profile" class="profile-image" id="profileImage">
+                    <div class="profile-info">
+                        <h2 id="profileName">Select a profile</h2>
+                        <p id="profileTitle" class="profile-title">Choose someone from above</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bio Card -->
+            <div class="bento-item bio-card">
+                <h3>About</h3>
+                <p id="profileBio">Select a profile to view their bio and information.</p>
+            </div>
+
+            <!-- Skills Card -->
+            <div class="bento-item skills-card">
+                <h3>Skills</h3>
+                <div id="profileSkills" class="skills-list">
+                    <span class="skill-tag">Select a profile</span>
+                </div>
+            </div>
+
+            <!-- Contact Card -->
+            <div class="bento-item contact-card">
+                <h3>Contact</h3>
+                <div id="profileContact" class="contact-info">
+                    <div class="contact-item">
+                        <span class="contact-label">📍 Location:</span>
+                        <span id="profileLocation">-</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-label">📧 Email:</span>
+                        <span id="profileEmail">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Links Card -->
+            <div class="bento-item links-card">
+                <h3>Links</h3>
+                <div id="profileLinks" class="links-list">
+                    <p>Select a profile to view links</p>
+                </div>
+            </div>
+
+            <!-- Featured Work Card (decorative) -->
+            <div class="bento-item featured-card">
+                <div class="featured-content">
+                    <h3>Featured</h3>
+                    <p>Explore amazing work</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
