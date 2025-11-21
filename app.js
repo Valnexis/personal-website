@@ -70,7 +70,7 @@ class ParticleSystem {
         }
         
         // Mouse repulsion
-        if (this.mouse.x != null && this.mouse.y != null) {
+        if (this.mouse.x !== null && this.mouse.y !== null) {
             const dx = this.mouse.x - particle.x;
             const dy = this.mouse.y - particle.y;
             const distance = Math.sqrt(dx * dx + dy * dy);
@@ -145,6 +145,9 @@ class ParticleSystem {
 
 // Initialize particle system
 let particleSystem = null;
+
+// Configuration constants
+const MAX_IMAGE_SIZE_MB = 5;
 
 // User preferences object
 let userPreferences = {
@@ -268,8 +271,8 @@ function updateParticles() {
 function handleImageUpload(event) {
     const file = event.target.files[0];
     if (file) {
-        if (file.size > 5 * 1024 * 1024) { // 5MB limit
-            showNotification('Image size must be less than 5MB', 'error');
+        if (file.size > MAX_IMAGE_SIZE_MB * 1024 * 1024) {
+            showNotification(`Image size must be less than ${MAX_IMAGE_SIZE_MB}MB`, 'error');
             return;
         }
         
