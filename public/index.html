@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Select Person</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Person Selection Modal -->
+    <div id="personSelectionModal" class="modal">
+        <div class="modal-content">
+            <h1>Select a Portfolio</h1>
+            <p class="modal-subtitle">Choose whose work you'd like to explore</p>
+            <div id="personList" class="person-list"></div>
+        </div>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div id="loadingIndicator" class="loading hidden">
+        <div class="loading-spinner"></div>
+        <p>Loading portfolio...</p>
+    </div>
+
+    <!-- Main Portfolio Content -->
+    <div id="portfolioContent" class="portfolio-content hidden">
+        <!-- Header Section -->
+        <header class="portfolio-header">
+            <button id="changePersonBtn" class="change-person-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M15 18l-6-6 6-6"/>
+                </svg>
+                Change Person
+            </button>
+            <div class="header-content">
+                <h1 id="personName" class="person-name"></h1>
+                <p id="personTitle" class="person-title"></p>
+            </div>
+        </header>
+
+        <!-- Bento Grid Layout -->
+        <main class="bento-grid">
+            <!-- About Card -->
+            <div class="bento-card card-about">
+                <div class="card-header">
+                    <h2>About Me</h2>
+                </div>
+                <div class="card-content">
+                    <p id="personBio" class="bio-text"></p>
+                </div>
+            </div>
+
+            <!-- Contact Card -->
+            <div class="bento-card card-contact">
+                <div class="card-header">
+                    <h2>Get in Touch</h2>
+                </div>
+                <div class="card-content">
+                    <div id="contactInfo" class="contact-info"></div>
+                </div>
+            </div>
+
+            <!-- Skills Card -->
+            <div class="bento-card card-skills">
+                <div class="card-header">
+                    <h2>Skills & Expertise</h2>
+                </div>
+                <div class="card-content">
+                    <div id="skillsList" class="skills-list"></div>
+                </div>
+            </div>
+
+            <!-- Projects Card -->
+            <div class="bento-card card-projects">
+                <div class="card-header">
+                    <h2>Featured Projects</h2>
+                </div>
+                <div class="card-content">
+                    <div id="projectsList" class="projects-list"></div>
+                </div>
+            </div>
+
+            <!-- Experience Card -->
+            <div class="bento-card card-experience">
+                <div class="card-header">
+                    <h2>Work Experience</h2>
+                </div>
+                <div class="card-content">
+                    <div id="experienceList" class="experience-list"></div>
+                </div>
+            </div>
+
+            <!-- Social Links Card -->
+            <div class="bento-card card-social">
+                <div class="card-header">
+                    <h2>Connect</h2>
+                </div>
+                <div class="card-content">
+                    <div id="socialLinks" class="social-links"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
