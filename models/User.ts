@@ -83,8 +83,8 @@ UserSchema.pre('save', async function (next) {
     const password = this.password as string;
     this.password = await bcrypt.hash(password, salt);
     next();
-  } catch (error: any) {
-    next(error);
+  } catch (error: unknown) {
+    next(error instanceof Error ? error : new Error('Failed to hash password'));
   }
 });
 
@@ -92,7 +92,7 @@ UserSchema.pre('save', async function (next) {
 UserSchema.methods.comparePassword = async function (candidatePassword: string): Promise<boolean> {
   try {
     return await bcrypt.compare(candidatePassword, this.password);
-  } catch (error) {
+  } catch {
     return false;
   }
 };

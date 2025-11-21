@@ -4,11 +4,12 @@ import User from '@/models/User';
 import { authMiddleware } from '@/middleware/auth';
 
 // GET single user (admin only)
-async function getUser(request: Request, context: any) {
+async function getUser(request: Request, context: { params: Promise<{ id: string }> }) {
   try {
     await connectDB();
 
-    const id = context.params.id;
+    const params = await context.params;
+    const id = params.id;
 
     const user = await User.findById(id).select('-password');
 
@@ -30,14 +31,16 @@ async function getUser(request: Request, context: any) {
 }
 
 // PUT update user (admin only)
-async function updateUser(request: Request, context: any) {
+async function updateUser(request: Request, context: { params: Promise<{ id: string }> }) {
   try {
     await connectDB();
 
-    const id = context.params.id;
+    const params = await context.params;
+    const id = params.id;
     const body = await request.json();
 
     // Don't allow password update through this endpoint
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...updateData } = body;
 
     const user = await User.findByIdAndUpdate(
@@ -67,11 +70,12 @@ async function updateUser(request: Request, context: any) {
 }
 
 // DELETE user (admin only)
-async function deleteUser(request: Request, context: any) {
+async function deleteUser(request: Request, context: { params: Promise<{ id: string }> }) {
   try {
     await connectDB();
 
-    const id = context.params.id;
+    const params = await context.params;
+    const id = params.id;
 
     const user = await User.findByIdAndDelete(id);
 

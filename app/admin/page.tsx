@@ -82,8 +82,8 @@ export default function AdminPage() {
       const response = await userAPI.getAll();
       setUsers(response.users);
       setError('');
-    } catch (err: any) {
-      setError(err.message || 'Failed to fetch users');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Failed to fetch users');
     } finally {
       setLoading(false);
     }
@@ -138,6 +138,7 @@ export default function AdminPage() {
 
       if (editingUser) {
         // Update existing user
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { password, ...updateData } = userData;
         await userAPI.update(editingUser._id, updateData);
       } else {
@@ -147,8 +148,8 @@ export default function AdminPage() {
 
       handleCloseDialog();
       fetchUsers();
-    } catch (err: any) {
-      setError(err.message || 'Failed to save user');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Failed to save user');
     }
   };
 
@@ -160,8 +161,8 @@ export default function AdminPage() {
     try {
       await userAPI.delete(id);
       fetchUsers();
-    } catch (err: any) {
-      setError(err.message || 'Failed to delete user');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Failed to delete user');
     }
   };
 

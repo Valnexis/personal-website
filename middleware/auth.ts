@@ -1,8 +1,11 @@
 import { NextResponse } from 'next/server';
 import { verifyToken } from '@/lib/auth';
 
-export function authMiddleware(handler: Function, requireAdmin: boolean = false) {
-  return async (request: Request, context?: any) => {
+export function authMiddleware<TContext extends Record<string, unknown>>(
+  handler: (request: Request, context: TContext) => Promise<Response>,
+  requireAdmin: boolean = false
+) {
+  return async (request: Request, context?: TContext) => {
     try {
       const authHeader = request.headers.get('authorization');
       
@@ -31,8 +34,8 @@ export function authMiddleware(handler: Function, requireAdmin: boolean = false)
       }
 
       // Pass user info to the handler
-      return handler(request, { ...context, user: payload });
-    } catch (error) {
+      return handler(request, { ...context, user: payload } as unknown as TContext);
+    } catch {
       return NextResponse.json(
         { error: 'Internal server error' },
         { status: 500 }

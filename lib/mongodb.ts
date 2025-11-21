@@ -16,10 +16,10 @@ interface CachedConnection {
  * in development. This prevents connections growing exponentially
  * during API Route usage.
  */
-let cached: CachedConnection = (global as any).mongoose;
+let cached: CachedConnection = (global as { mongoose?: CachedConnection }).mongoose as CachedConnection;
 
 if (!cached) {
-  cached = (global as any).mongoose = { conn: null, promise: null };
+  cached = (global as { mongoose?: CachedConnection }).mongoose = { conn: null, promise: null };
 }
 
 async function connectDB() {

@@ -4,7 +4,7 @@ import User from '@/models/User';
 import { authMiddleware } from '@/middleware/auth';
 
 // GET all users (admin only)
-async function getUsers(request: Request, context: any) {
+async function getUsers(_request: Request, _context: unknown) {
   try {
     await connectDB();
 
@@ -24,7 +24,7 @@ async function getUsers(request: Request, context: any) {
 }
 
 // POST create new user (admin only)
-async function createUser(request: Request, context: any) {
+async function createUser(request: Request, _context: unknown) {
   try {
     await connectDB();
 
