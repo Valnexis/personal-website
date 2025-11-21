@@ -40,8 +40,7 @@ async function updateUser(request: Request, context: { params: Promise<{ id: str
     const body = await request.json();
 
     // Don't allow password update through this endpoint
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password, ...updateData } = body;
+    const { password: _, ...updateData } = body;
 
     const user = await User.findByIdAndUpdate(
       id,

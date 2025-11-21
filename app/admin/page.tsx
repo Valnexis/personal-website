@@ -38,6 +38,7 @@ import {
 } from '@mui/icons-material';
 import { userAPI } from '@/lib/api';
 import { User } from '@/types/user';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 export default function AdminPage() {
   const [users, setUsers] = useState<User[]>([]);
@@ -45,6 +46,8 @@ export default function AdminPage() {
   const [error, setError] = useState('');
   const [openDialog, setOpenDialog] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  const [userToDelete, setUserToDelete] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -138,8 +141,7 @@ export default function AdminPage() {
 
       if (editingUser) {
         // Update existing user
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { password, ...updateData } = userData;
+        const { password: _, ...updateData } = userData;
         await userAPI.update(editingUser._id, updateData);
       } else {
         // Create new user
@@ -154,15 +156,22 @@ export default function AdminPage() {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this user?')) {
-      return;
-    }
+    setUserToDelete(id);
+    setDeleteConfirmOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!userToDelete) return;
 
     try {
-      await userAPI.delete(id);
+      await userAPI.delete(userToDelete);
       fetchUsers();
+      setDeleteConfirmOpen(false);
+      setUserToDelete(null);
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Failed to delete user');
+      setDeleteConfirmOpen(false);
+      setUserToDelete(null);
     }
   };
 
@@ -347,6 +356,17 @@ export default function AdminPage() {
           </Button>
         </DialogActions>
       </Dialog>
+
+      <ConfirmDialog
+        open={deleteConfirmOpen}
+        title="Confirm Delete"
+        message="Are you sure you want to delete this user? This action cannot be undone."
+        onConfirm={confirmDelete}
+        onCancel={() => {
+          setDeleteConfirmOpen(false);
+          setUserToDelete(null);
+        }}
+      />
     </Box>
   );
 }
