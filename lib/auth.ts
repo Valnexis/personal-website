@@ -1,10 +1,12 @@
 import jwt from 'jsonwebtoken';
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET || '';
 
-if (!JWT_SECRET) {
-  throw new Error('JWT_SECRET environment variable is required. Please set it in your .env.local file.');
-}
+const ensureJWTSecret = () => {
+  if (!JWT_SECRET) {
+    throw new Error('JWT_SECRET environment variable is required. Please set it in your .env.local file.');
+  }
+};
 
 export interface TokenPayload {
   userId: string;
@@ -13,10 +15,12 @@ export interface TokenPayload {
 }
 
 export const generateToken = (payload: TokenPayload): string => {
+  ensureJWTSecret();
   return jwt.sign(payload, JWT_SECRET, { expiresIn: '7d' });
 };
 
 export const verifyToken = (token: string): TokenPayload | null => {
+  ensureJWTSecret();
   try {
     return jwt.verify(token, JWT_SECRET) as TokenPayload;
   } catch {
